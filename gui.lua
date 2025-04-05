@@ -201,6 +201,13 @@ end
 
 ---Setsup all necessary values
 local function setup()
+
+	-- Make sure states exists
+	if not states then
+		states = {}
+		storage.gui_states = states
+	end
+
 	---MARK: Setup
 	if not namespace_metadata then
 		log("Setup called after namespace_metadata has been cleared.")
@@ -366,11 +373,7 @@ local function input_or_shortcut_handler(EventData)
 end
 
 ---MARK: init
-function modules_gui.on_init()
-	states = {}
-	storage.gui_states = states
-	setup()
-end
+modules_gui.on_init = setup
 function modules_gui.on_load()
 	states = storage.gui_states
 end
